@@ -1,0 +1,57 @@
+{
+  "from" : {
+    "imagename" : "python",
+    "imageVersionNumber" : 2.7
+  },
+  "runs" : [ {
+    "executable" : "mkdir",
+    "params" : [ "/app" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "clean" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "update", "-y" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "install", "npm", "-y" ]
+  }, {
+    "executable" : "npm",
+    "params" : [ "install", "-g", "bower" ]
+  }, {
+    "executable" : "npm",
+    "params" : [ "install", "-g", "less" ]
+  }, {
+    "executable" : "ln",
+    "params" : [ "-s", "/usr/bin/nodejs", "/usr/bin/node" ]
+  }, {
+    "executable" : "pip",
+    "params" : [ "install", "-r", "requirements.txt" ]
+  }, {
+    "executable" : "bower",
+    "params" : [ "install", "--allow-root" ]
+  }, {
+    "executable" : "python",
+    "params" : [ "manage.py", "collectstatic", "--noinput" ]
+  } ],
+  "envs" : [ {
+    "key" : "PYTHONUNBUFFERED",
+    "value" : "1"
+  } ],
+  "adds" : [ {
+    "source" : "requirements.txt",
+    "destination" : "/app/"
+  }, {
+    "source" : "bower.json",
+    "destination" : "/app/"
+  }, {
+    "source" : ".bowerrc",
+    "destination" : "/app/"
+  }, {
+    "source" : ".",
+    "destination" : "/app/"
+  } ],
+  "workDirs" : [ {
+    "path" : "/app"
+  } ]
+}
