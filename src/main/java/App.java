@@ -20,8 +20,8 @@ public class App {
         String dockerPath = args[1];
 */
 
-        String repoName = "probr/probr-core";
-        String dockerPath = "";
+        String repoName = "seapy/slack_invite_automation_sinatra";
+        String dockerPath = "Dockerfile";
 
         GithubRepository gitHubMetaData = GitHubMinerService.getGitHubRepository(GITAPI + REPOS + repoName);
 
@@ -32,9 +32,8 @@ public class App {
         System.out.println("2. Clone Repo");
         gitCloner.cloneRepository(gitHubMetaData.git_url, repoFolderName);
 
-
         String currentDirectory = new File("").getAbsolutePath() + "\\" + repoFolderName;
-        File dockerfile  = new File(currentDirectory+ "\\" +"Dockerfile");
+        File dockerfile  = new File(currentDirectory+ "\\" +dockerPath+ "Dockerfile");
         File flatDockerFile  = new File(currentDirectory+ "\\" +"FlatDockerfile");
         flatDockerFile.createNewFile();
         System.out.println(dockerfile.exists());

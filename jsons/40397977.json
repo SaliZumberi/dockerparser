@@ -1,0 +1,10 @@
+{
+  "from" : {
+    "imagename" : "scratch",
+    "imageVersionNumber" : 0.0
+  },
+  "adds" : [ {
+    "source" : "rootfs.tar.gz",
+    "destination" : "/"
+  } ]
+}

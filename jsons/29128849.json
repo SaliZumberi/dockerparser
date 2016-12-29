@@ -1,0 +1,79 @@
+{
+  "from" : {
+    "imagename" : "ubuntu",
+    "imageVersionNumber" : 14.04
+  },
+  "runs" : [ {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "update" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "-y", "dist-upgrade" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "-y", "install", "build-essential", "software-properties-common", "python-software-properties", "git" ]
+  }, {
+    "executable" : "add-apt-repository",
+    "params" : [ "-y", "ppa:brightbox/ruby-ng" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "update" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "-y", "install", "ruby2.2", "ruby2.2-dev" ]
+  }, {
+    "executable" : "gem",
+    "params" : [ "install", "bundler", "--no-ri", "--no-rdoc" ]
+  }, {
+    "executable" : "apt-get",
+    "params" : [ "-qq", "-y", "clean" ]
+  }, {
+    "executable" : "bundle",
+    "params" : [ "install", "--without", "development", "test" ]
+  } ],
+  "exposes" : [ {
+    "port" : 80
+  } ],
+  "adds" : [ {
+    "source" : ".",
+    "destination" : "/app"
+  } ],
+  "workDirs" : [ {
+    "path" : "/app"
+  } ],
+  "comments" : [ {
+    "instructionAfter" : "header",
+    "comment" : "#  https://github.com/subicura/slack_invite_automation_sinatra   build command  * docker build --force-rm=true -t subicura/slack_invite ."
+  }, {
+    "instructionAfter" : "before RUN",
+    "comment" : "# update ubuntu latest"
+  }, {
+    "instructionAfter" : "before RUN",
+    "comment" : "# install essential packages"
+  }, {
+    "instructionAfter" : "before RUN",
+    "comment" : "# install ruby2.2"
+  }, {
+    "instructionAfter" : "before RUN",
+    "comment" : "# cleanup"
+  }, {
+    "instructionAfter" : "before ADD",
+    "comment" : "# add sources"
+  }, {
+    "instructionAfter" : "before WORKDIR",
+    "comment" : "# add application"
+  }, {
+    "instructionAfter" : "before RUN",
+    "comment" : "# run bundle"
+  }, {
+    "instructionAfter" : "before EXPOSE",
+    "comment" : "# run"
+  } ],
+  "cmd" : {
+    "executable" : "bundle",
+    "params" : [ "exec", "ruby", "server.rb", "-p", "80" ]
+  },
+  "maintainer" : {
+    "maintainername" : "subicura@subicura.com"
+  }
+}
