@@ -1,11 +1,8 @@
 package models.commands;
 
 import models.Snapshot;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by salizumberi-laptop on 01.11.2016.
@@ -13,31 +10,36 @@ import java.util.List;
 @Entity
 @Table(name = "df_healthcheck")
 public class Healthcheck extends Instruction{
+    @Column(name = "options_params", nullable = false)
+    String optionsBeforeInstructions;
 
-    @ElementCollection
-    @CollectionTable(name="option_params", joinColumns=@JoinColumn(name="RUN_ID"))
-    @Column(name="option_params")
-    List<String> optionsBeforeInstructions = new ArrayList<>();
+    @Column(name = "instruction", nullable = false)
+    public String instruction;
 
+    @Column(name = "instruction_params", nullable = false)
+    public String allParams;
 
-    public Healthcheck(Snapshot snapshot,Instruction instruction) {
+    public Healthcheck(Snapshot snapshot, String instruction, String allParams) {
         super();
-        //   this.snapshot = snapshot;
-       // this.healthInstruction =instruction;
+        //this.snapshot = snapshot;
+        this.instruction =instruction;
+        this.allParams=allParams;
     }
 
-    public Healthcheck(List<String> optionsBeforeInstructions) {
+    public Healthcheck(String optionsBeforeInstructions) {
         super();
         this.optionsBeforeInstructions =optionsBeforeInstructions;
     }
 
-    public Healthcheck(Snapshot snapshot, Instruction instruction, List<String> optionsBeforeInstructions) {
+    public Healthcheck(Snapshot snapshot, String instruction, String optionsBeforeInstructions, String allParams) {
         super();
-        //   this.snapshot = snapshot;
-       // this.healthInstruction =instruction;
+       // this.snapshot = snapshot;
+        this.instruction =instruction;
         this.optionsBeforeInstructions =optionsBeforeInstructions;
+        this.allParams=allParams;
     }
 
     public Healthcheck() {
     }
 }
+

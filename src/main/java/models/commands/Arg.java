@@ -15,9 +15,12 @@ public class Arg extends Instruction{
     @Column(name = "arg")
     public String arg;
 
+    @Column(name = "current", nullable = false)
+    public boolean current;
 
-    public Arg(String arg) {
+    public Arg(Snapshot snapshot, String arg) {
         super();
+        //this.snapshot =snapshot;
         this.arg = arg;
     }
 
